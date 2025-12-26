@@ -1,0 +1,38 @@
+https://leetcode.com/problems/reverse-substrings-between-each-pair-of-parentheses/
+
+class Solution {
+    public String reverseParentheses(String s) {
+        StringBuilder sb = new StringBuilder();
+        ArrayList<Integer> al = new ArrayList<>();
+        for(int i = 0 ; i < s.length() ; i++){
+            if(s.charAt(i) == '('){
+                sb.append('(');
+                al.add(i+1);
+            }
+            else if(s.charAt(i) == ')'){
+                sb.append(')');
+                sb = reverse(sb , al.get(al.size()-1) , i-1);
+                al.removeLast();
+            }else{
+                sb.append(s.charAt(i));
+            }
+        }
+        StringBuilder ans = new StringBuilder();
+        for(int i = 0 ; i < sb.length() ; i++){
+            if(sb.charAt(i) != ')' && sb.charAt(i) != '('){
+                ans.append(sb.charAt(i));
+            }
+        }
+        return ans.toString();
+    }
+    private StringBuilder reverse(StringBuilder sb , int i , int j){
+        while(i <= j){
+            char temp = sb.charAt(i);
+            sb.setCharAt(i , sb.charAt(j));
+            sb.setCharAt(j , temp);
+            i++;
+            j--;
+        }
+        return sb;
+    }
+}

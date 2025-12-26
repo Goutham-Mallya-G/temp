@@ -1,0 +1,47 @@
+https://leetcode.com/problems/elimination-game/description/
+
+class Solution {
+    public int lastRemaining(int n) {
+        if(n == 1 ) return 1;
+        boolean[] check = new boolean[n];
+        ArrayList<Integer> arr = new ArrayList<>();
+        for(int i = 0 ; i < check.length ; i++){
+            if(check[i] == false){
+                arr.add(i+1);
+            }
+        }
+        while(arr.size() != 1){
+
+
+            for(int i = 0 ; i < arr.size() ; i+=2){
+                check[arr.get(i) - 1] = true;
+            }
+
+            arr.clear();
+
+            for(int i = 0 ; i < check.length ; i++){
+                if(check[i] == false){
+                    arr.add(i+1);
+                }
+            }
+            if(arr.size() == 1) break;
+
+            for(int i = arr.size()-1 ; i >=0 ; i-=2){
+                check[arr.get(i)-1] = true;
+            }
+            arr.clear();
+
+            for(int i = 0 ; i < check.length ; i++){
+                if(check[i] == false){
+                    arr.add(i+1);
+                }
+            }
+        }
+        for(int i = 0 ; i < check.length ; i++){
+            if(check[i] == false){
+                return i+1;
+            }
+        }
+        return -1;
+    }
+}

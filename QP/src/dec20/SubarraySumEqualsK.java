@@ -1,0 +1,26 @@
+package dec20;
+
+import java.util.HashMap;
+
+public class SubarraySumEqualsK {
+    public static void main(String[] args) {
+        int[] arr = new int[]{1,2,3};
+        int k = 3;
+        System.out.println(subarraySum(arr , k));
+    }
+    public static int subarraySum(int[] nums, int k) {
+        HashMap<Integer , Integer> hash = new HashMap<>();
+        hash.put(0,1);
+        int sum = 0;
+        int ans = 0;
+        for(int i = 0 ; i < nums.length ; i++){
+            sum += nums[i];
+            int need = sum - k;
+            if(hash.containsKey(need)){
+                ans+=hash.get(need);
+            }
+            hash.put(sum , hash.getOrDefault(sum ,  0) +1);
+        }
+        return ans;
+    }
+}
